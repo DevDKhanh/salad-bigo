@@ -1,0 +1,33 @@
+@import '../../styles/variables';
+.mainWheel {
+    position: relative;
+    width: 98vw;
+    height: 98vw;
+    max-width: $maxWidthWheel;
+    max-height: $maxWidthWheel;
+    margin: 10px auto;
+    border-radius: 50%;
+}
+
+.message {
+    font-size: 40px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+    animation: showMsg 2s forwards;
+    white-space: nowrap;
+}
+
+@keyframes showMsg {
+    0% {
+        opacity: 1;
+        margin-top: 0;
+    }
+
+    100% {
+        opacity: 0;
+        margin-top: -100px;
+    }
+}

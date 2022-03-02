@@ -1,0 +1,70 @@
+@import '../../../styles/color';
+@import '../../../styles/variables';
+
+.groupForm {
+    border: 1px solid #9ea6ad;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 10px;
+    .groupLabel {
+        position: absolute;
+        display: flex;
+        top: 0;
+        left: 20px;
+        transform: translateY(-50%);
+        align-items: center;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 0 5px;
+
+        .label {
+            display: block;
+            font-size: 13px;
+            color: #9ea6ad;
+
+            span {
+                color: red;
+            }
+        }
+    }
+
+    .groupInput {
+        input {
+            background-color: #fff;
+            width: 100%;
+            outline: none;
+            padding: 16px 25px;
+            border-radius: 12px;
+            border: none;
+            overflow: none;
+        }
+
+        .toggleType {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+.groupForm.error {
+    input {
+        border: 1px solid $danger-1;
+        color: $danger-1;
+        &::placeholder {
+            color: $danger-1;
+        }
+    }
+    .message {
+        color: $danger-1;
+    }
+}
+
+.groupForm + .groupForm {
+    margin-top: 20px;
+}

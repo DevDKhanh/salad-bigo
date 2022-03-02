@@ -1,0 +1,17 @@
+.main {
+    width: 35vw;
+    height: 35vw;
+    max-width: 150px;
+    max-height: 150px;
+    position: absolute;
+    border: 5px solid rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    font-size: 30px;
+    transform: translate(-50%, -50%);
+}

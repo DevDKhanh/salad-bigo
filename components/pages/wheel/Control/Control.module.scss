@@ -1,0 +1,52 @@
+@import '../../../../styles/variables';
+.main {
+    position: relative;
+    width: 98vw;
+    max-width: calc($maxWidthWheel * 0.9);
+    margin: 5px auto;
+    border: 3px solid #39559e;
+    background-color: #1dc1fd;
+    border-radius: 15px;
+    margin-top: 30px;
+
+    .note {
+        text-align: center;
+    }
+
+    .mainBet {
+        padding: 10px;
+        display: flex;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 1px 1px 0px #000;
+        justify-content: space-between;
+        align-items: center;
+
+        .btnBet.active {
+            background-image: url('../../../../assets/images/coin-2.svg');
+        }
+
+        .btnBet {
+            width: 17vw;
+            height: 17vw;
+            background-image: url('../../../../assets/images/coin.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            max-width: 70px;
+            max-height: 70px;
+            font-size: calc(10px + 2vmin);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            &:hover {
+                cursor: pointer;
+            }
+            @media screen and (min-width: 545px) {
+                font-size: 22px;
+            }
+        }
+    }
+}

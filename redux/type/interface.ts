@@ -1,0 +1,9 @@
+export const TOGGLE_LOADING = 'interface/loading';
+export const UPDATE_TITLE = 'update/title-header';
+export const UPDATE_SHOW_NOTIFI = 'update/show-notification';
+export const UPDATE_BTN_BACK = 'update/show-button-back';
+export const UPDATE_SHOW_HEADER = 'update/show-header';
+export const UPDATE_SHOW_NAVIGATION = 'update/show-navigation';
+export const UPDATE_SHOW_BACKGROUND = 'update/show-background';
+export const UPDATE_SHOW_HEADER_TIME = 'update/show-header-time';
+export const UPDATE_SHOW_CHANGE_LANG = 'update/show-change-lang';

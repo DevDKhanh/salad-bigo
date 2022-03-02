@@ -1,0 +1,34 @@
+@import '../../../styles/color';
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn {
+        position: relative;
+        background-color: #ebedef;
+        height: 18px;
+        width: 36px;
+        border-radius: 18px;
+        margin-right: 8px;
+        transition: 0.3s;
+
+        .switch {
+            transition: 0.3s;
+            position: absolute;
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background-color: $light;
+            left: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .btn.on {
+        background-color: $primary-1;
+        .switch {
+            left: 20px;
+        }
+    }
+}

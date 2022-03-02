@@ -1,0 +1,56 @@
+@import '../../styles/color';
+.container {
+    .main {
+        width: 100%;
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        .img {
+            position: relative;
+            width: 100%;
+            min-height: 35vh;
+        }
+
+        .logo {
+            position: relative;
+            width: 70vw;
+            height: 35vw;
+            max-width: 300px;
+            max-height: 150px;
+            margin: 0 auto;
+        }
+
+        .form {
+            width: 100%;
+            form {
+                margin-top: 24px;
+            }
+            .link {
+                display: block;
+                font-size: 16px;
+                font-weight: 500;
+                margin-top: 20px;
+                margin-bottom: 24px;
+                text-align: right;
+            }
+            .btnGroup {
+                margin-top: 24px;
+            }
+        }
+
+        .nav {
+            font-size: 16px;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 10px;
+            a {
+                display: inline-block;
+                margin-left: 5px;
+                color: $primary-1;
+            }
+        }
+    }
+}

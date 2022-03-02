@@ -1,0 +1,38 @@
+@import './color';
+
+//**********************
+//* COLOR TEXT
+//**********************
+
+/*===========> PRIMARY <==========*/
+.text-primary-1 {
+    color: $primary-1;
+}
+.text-primary-2 {
+    color: $primary-2;
+}
+.text-primary-3 {
+    color: $primary-3;
+}
+.text-primary-4 {
+    color: $primary-4;
+}
+
+/*===========> NEUTRALS <==========*/
+.text-neutrals-1 {
+    color: $neutrals-1;
+}
+.text-neutrals-2 {
+    color: $neutrals-2;
+}
+.text-neutrals-3 {
+    color: $neutrals-3;
+}
+.text-neutrals-4 {
+    color: $neutrals-4;
+}
+
+/*===========> OTHER <==========*/
+.text-light {
+    color: $light;
+}
