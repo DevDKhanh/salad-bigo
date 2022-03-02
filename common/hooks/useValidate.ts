@@ -1,7 +1,4 @@
 import { useRouter } from 'next/router';
-import en from '../../public/lang/en';
-import vi from '../../public/lang/vi';
-
 interface types {
     value?: string;
     valueConfirm?: string;
