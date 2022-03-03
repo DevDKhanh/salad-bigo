@@ -1,0 +1,31 @@
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 0;
+    border-bottom: 1px solid #c4c4c4;
+}
+.main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    .item {
+        padding: 8px;
+        flex: 1;
+        border-radius: 5px;
+        text-align: center;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.9;
+        }
+    }
+
+    .item.active {
+        background-color: #000;
+        font-weight: 600;
+        color: #fff;
+    }
+}

@@ -1,0 +1,51 @@
+@import '../../../../styles/color';
+.container {
+    background-image: url('../../../../assets/images/bg-wallet.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: $primary-1;
+    .main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 0;
+
+        .title {
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .coin {
+            margin-top: 12px;
+            font-size: 28px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+    }
+    .iconIcon {
+        display: inline-block;
+        position: relative;
+        width: 23px;
+        height: 23px;
+        margin-right: 3px;
+    }
+
+    .groupBtn {
+        .btn {
+            border: 2px solid #fff;
+            padding: 11px 24px;
+            font-size: 16px;
+            color: #fff;
+            border-radius: 10px;
+            background-color: $primary-1;
+            &:hover {
+                cursor: pointer;
+                opacity: 0.8;
+            }
+        }
+    }
+}

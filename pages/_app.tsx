@@ -1,15 +1,29 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import MainPage from '../components/layout/MainPage';
 import store from '../redux/store';
 import { Fragment } from 'react';
 import Head from 'next/head';
+import SplashScreen from '../components/protected/SplashScreen';
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <Fragment>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <Head>
                 <title>Lucky Wheel</title>
                 <meta
@@ -19,9 +33,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Provider store={store}>
-                <MainPage>
-                    <Component {...pageProps} />
-                </MainPage>
+                <SplashScreen>
+                    <MainPage>
+                        <Component {...pageProps} />
+                    </MainPage>
+                </SplashScreen>
             </Provider>
         </Fragment>
     );

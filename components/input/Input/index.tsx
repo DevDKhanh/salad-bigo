@@ -51,33 +51,35 @@ function Input({
         <div
             className={clsx([
                 className,
-                style.groupForm,
+                style.groupInput,
                 { [style.error]: error },
             ])}
         >
-            <div className={style.groupLabel}>
-                <label className={style.label}>
-                    {label}
-                    {required && <span>*</span>}
-                </label>
-                {children}
-            </div>
-            <div className={style.groupInput}>
-                <input
-                    type={showPass ? 'text' : type}
-                    placeholder={placeholder}
-                    name={name}
-                    onFocus={handleFocus}
-                    {...props}
-                />
-                {isPassword && (
-                    <span
-                        className={style.toggleType}
-                        onClick={handleToggleShowPass}
-                    >
-                        {showPass ? <IoEyeOutline /> : <IoEyeOffOutline />}
-                    </span>
-                )}
+            <div className={clsx([style.groupForm])}>
+                <div className={style.groupLabel}>
+                    <label className={style.label}>
+                        {label}
+                        {required && <span>*</span>}
+                    </label>
+                    {children}
+                </div>
+                <div className={style.groupInput}>
+                    <input
+                        type={showPass ? 'text' : type}
+                        placeholder={placeholder}
+                        name={name}
+                        onFocus={handleFocus}
+                        {...props}
+                    />
+                    {isPassword && (
+                        <span
+                            className={style.toggleType}
+                            onClick={handleToggleShowPass}
+                        >
+                            {showPass ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                        </span>
+                    )}
+                </div>
             </div>
             {error && <span className={style.message}>{error}</span>}
         </div>

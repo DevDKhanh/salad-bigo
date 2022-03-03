@@ -52,19 +52,23 @@
     }
 }
 
-.groupForm.error {
-    input {
+.error {
+    .groupForm {
         border: 1px solid $danger-1;
         color: $danger-1;
-        &::placeholder {
+        input {
+            &::placeholder {
+                color: $danger-1;
+            }
+        }
+        .label {
             color: $danger-1;
         }
     }
-    .message {
-        color: $danger-1;
-    }
+
+    color: $danger-1;
 }
 
-.groupForm + .groupForm {
+.groupInput + .groupInput {
     margin-top: 20px;
 }

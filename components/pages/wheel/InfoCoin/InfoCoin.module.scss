@@ -1,0 +1,50 @@
+@import '../../../../styles/variables';
+.main {
+    border-radius: 5px;
+    width: 98vw;
+    max-width: calc($maxWidthWheel * 0.9);
+    margin: 17px auto;
+    padding: 10px;
+    border: 3px solid #39559e;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .coin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        .coinNumber {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+            font-weight: 600;
+        }
+        .iconIcon {
+            display: inline-block;
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+    }
+    .groupBtn {
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffcc00;
+            padding: 7px;
+            border: 2px solid #39559e;
+            padding-left: 15px;
+            border-radius: 3px;
+            .icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 20px;
+            }
+        }
+    }
+}
