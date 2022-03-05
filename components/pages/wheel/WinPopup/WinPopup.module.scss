@@ -1,0 +1,121 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/color';
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    backdrop-filter: blur(3px);
+}
+
+.main {
+    animation: show 0.4s ease-in-out forwards;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 200;
+}
+
+.table {
+    background-color: #fff;
+    width: calc($maxWidth * 0.9);
+    position: fixed;
+    top: 50%;
+    z-index: 110;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    @media screen and (max-width: 450px) {
+        width: 95vw;
+    }
+    .imgWin {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        background-image: url('../../../../assets/images/win.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 216px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @media screen and (max-width: 450px) {
+            width: 50vw;
+            height: 30vw;
+        }
+
+        img {
+            width: 30%;
+        }
+    }
+    .mainInfo {
+        min-height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 11px;
+        padding-top: 12%;
+        font-size: 14px;
+        .listBet {
+            margin-left: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .item {
+                width: 20px;
+            }
+        }
+        h3 {
+            color: $primary-1;
+            font-weight: 500;
+        }
+        .row {
+            display: flex;
+            margin-top: 5px;
+            align-items: center;
+            &:nth-child(2) {
+                .label {
+                    color: $primary-4;
+                }
+            }
+        }
+        .img {
+            width: 25%;
+        }
+        .coinNumber {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+        }
+        .iconIcon {
+            display: inline-block;
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+@keyframes show {
+    0% {
+        transform: scale(0);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    85% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

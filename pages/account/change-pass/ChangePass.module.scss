@@ -1,0 +1,29 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    .groupBtn {
+        width: 100%;
+        margin: 20px 0;
+    }
+    .main {
+        width: 100%;
+    }
+    .form {
+        margin-top: 20px;
+    }
+    .note {
+        color: red;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 15px;
+        .icon {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+    }
+}

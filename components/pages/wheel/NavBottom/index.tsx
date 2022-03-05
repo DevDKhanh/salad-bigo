@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
 import icons from '../../../../constants/images/icon';
 import style from './NavBottom.module.scss';
 import Link from 'next/link';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import backgrounds from '../../../../constants/images/background';
+import { RootState } from '../../../../redux/reducers';
+import { useSelector } from 'react-redux';
 
 function NavBottom() {
+    const { userData } = useSelector((state: RootState) => state.user);
     return (
         <div className={style.container}>
             <div className={style.bg}>
-                <Image
-                    src={backgrounds.bgSubtract}
-                    alt={'backgrounds'}
-                    layout="fill"
-                />
+                <img src={backgrounds.bgSubtract.src} alt={'backgrounds'} />
             </div>
             <div className={style.avatar}>
-                <Image src={icons.dish2} alt="user" layout="fill" />
+                <img src={userData.avatar} alt="user" />
             </div>
-            <div className={style.nameUser}>duykhanh</div>
+            <div className={style.nameUser}>{userData.full_name}</div>
             <div className={style.groupBtn}>
-                <Link href="/acount">
+                <Link href="/account">
                     <a className={style.btn}>
                         Tài khoản
                         <span className={style.icon}>
@@ -34,4 +33,4 @@ function NavBottom() {
     );
 }
 
-export default NavBottom;
+export default memo(NavBottom);

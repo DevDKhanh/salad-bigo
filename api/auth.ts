@@ -9,40 +9,32 @@ const authAPI = {
             cancelToken: tokenAxios,
         });
     },
+    logout: (token: string, tokenAxios?: any) => {
+        const url = `${routeName}/logout`;
+        return axiosClient.post(
+            url,
+            {},
+            {
+                cancelToken: tokenAxios,
+                headers: {
+                    authorization: 'Bearer ' + token,
+                },
+            }
+        );
+    },
     login: (data: any, tokenAxios?: any) => {
         const url = `${routeName}/login`;
         return axiosClient.post(url, data, {
             cancelToken: tokenAxios,
         });
     },
-    forgotPassword: (data: any, tokenAxios?: any) => {
-        const url = `${routeName}/forgot-password`;
-        return axiosClient.post(url, data, {
+    ping: (token: string, tokenAxios?: any) => {
+        const url = `${routeName}/profile`;
+        return axiosClient.get(url, {
             cancelToken: tokenAxios,
-        });
-    },
-    resetPassword: (data: any, tokenAxios?: any) => {
-        const url = `${routeName}/reset-password`;
-        return axiosClient.post(url, data, {
-            cancelToken: tokenAxios,
-        });
-    },
-    changePass: (data: any, tokenAxios?: any) => {
-        const url = `${routeName}/change-password`;
-        return axiosClient.post(url, data, {
-            cancelToken: tokenAxios,
-        });
-    },
-    sendOtp: (data: any, tokenAxios?: any) => {
-        const url = `${routeName}/send-otp`;
-        return axiosClient.post(url, data, {
-            cancelToken: tokenAxios,
-        });
-    },
-    ping: (data: { tokenStr: string }, tokenAxios?: any) => {
-        const url = `${routeName}/ping`;
-        return axiosClient.post(url, data, {
-            cancelToken: tokenAxios,
+            headers: {
+                authorization: 'Bearer ' + token,
+            },
         });
     },
 };

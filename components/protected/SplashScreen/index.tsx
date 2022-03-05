@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import axiosClient from '../../../api';
 import { login } from '../../../redux/actions/auth';
 import { toggleLoading } from '../../../redux/actions/interface';
+import { setCoin, setUserData } from '../../../redux/actions/user';
+import { setList } from '../../../redux/actions/wheel';
 import { RootState } from '../../../redux/reducers';
 
 /*===========> INTERFACE <==========*/
@@ -30,12 +32,15 @@ function SplashScreen({ children }: props) {
                     `${origin}/api/check-login`
                 );
 
-                const userData = JSON.parse(res.data.userData);
-
                 /*---------- current user logged, update state ----------*/
                 if (res.code === 1) {
                     const token = res.data.token;
+                    const userData = res.data.userData;
+                    const listItemWheel = res.data.listItemWheel;
                     dispatch(login({ token }));
+                    dispatch(setCoin(userData.coin));
+                    dispatch(setUserData(userData));
+                    dispatch(setList(listItemWheel));
                 }
 
                 dispatch(toggleLoading()); //==> hidden splash screen

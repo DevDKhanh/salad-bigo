@@ -5,12 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentBet } from '../../../../redux/actions/user';
 import { RootState } from '../../../../redux/reducers';
 import style from './Control.module.scss';
+import backgrounds from '../../../../constants/images/background';
 
 function Control() {
     const { currentBet } = useSelector((state: RootState) => state.user);
     const dispatch = useDispatch();
     return (
         <div className={style.main}>
+            <div className={style.rotary}>
+                <img src={backgrounds.rotary.src} alt="rotary" />
+            </div>
             <h4 className={style.note}>
                 Choose the amount of wager &gt; choose food
             </h4>

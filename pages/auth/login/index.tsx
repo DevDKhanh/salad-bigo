@@ -14,6 +14,8 @@ import axios from 'axios';
 import { login } from '../../../redux/actions/auth';
 import { toast } from 'react-toastify';
 import RequiredLogout from '../../../components/protected/RequiredLogout';
+import { setCoin, setUserData } from '../../../redux/actions/user';
+import { setList } from '../../../redux/actions/wheel';
 /*===========> INTERFACE <==========*/
 interface typeDataForm {
     phone?: string;
@@ -29,27 +31,11 @@ interface typeMessage {
 function Login() {
     const dispatch = useDispatch();
     const validate = useValidate;
-    const { isRemember, dataSavePass } = useSelector(
-        (state: RootState) => state.auth
-    );
     const [dataForm, setDataForm] = useState<typeDataForm>({
         phone: '',
         password: '',
     });
     const [message, setMessage] = useState<typeMessage>();
-
-    /********** add data if user remember password **********/
-    useEffect(() => {
-        if (isRemember) {
-            if (dataSavePass?.phone && dataSavePass?.password) {
-                setDataForm((prev) => ({
-                    ...prev,
-                    phone: dataSavePass?.phone,
-                    password: dataSavePass?.password,
-                }));
-            }
-        }
-    }, [isRemember]);
 
     /********** Handle Functions **********/
     const handleChange = useCallback((e: any) => {
@@ -79,6 +65,9 @@ function Login() {
                                     token: data.payload.token,
                                 })
                             );
+                            dispatch(setList(data.listItemWheel));
+                            dispatch(setCoin(data.payload.coin));
+                            dispatch(setUserData(data.payload));
                         } else {
                             toast.warn(data?.message);
                         }

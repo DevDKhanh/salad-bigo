@@ -42,7 +42,7 @@ function ItemWheel({ isActive, img, winTimes, isStarting }: props) {
             onClick={handleBet}
         >
             <div className={clsx([style.img])}>
-                <Image src={img} width="30" height="30" />
+                <img src={img} width="30" height="30" />
             </div>
             {coinBet > 0 && (
                 <div className={style.bet}>

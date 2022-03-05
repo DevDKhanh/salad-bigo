@@ -1,12 +1,35 @@
 @import './variables';
+
+.container {
+    background-image: url('../assets/images/bg-main.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 .mainWheel {
     position: relative;
+    z-index: 100;
     width: 98vw;
     height: 98vw;
     max-width: $maxWidthWheel;
     max-height: $maxWidthWheel;
     margin: 10px auto;
     border-radius: 50%;
+}
+
+.linkHistory {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    .icon {
+        font-size: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .message {

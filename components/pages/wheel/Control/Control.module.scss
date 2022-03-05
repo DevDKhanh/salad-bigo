@@ -6,11 +6,24 @@
     margin: 5px auto;
     border: 3px solid #39559e;
     background-color: #1dc1fd;
-    border-radius: 15px;
+    border-radius: 15px 15px;
     margin-top: 30px;
+
+    .rotary {
+        position: absolute;
+        bottom: 95%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 102%;
+    }
 
     .note {
         text-align: center;
+        margin-top: 20px;
+        font-size: calc(4px + 2vmin);
+        @media screen and (min-width: 545px) {
+            font-size: 14px;
+        }
     }
 
     .mainBet {

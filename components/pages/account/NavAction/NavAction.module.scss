@@ -1,0 +1,38 @@
+@import '../../../../styles/color';
+.container {
+    .item.logout {
+        color: $primary-1;
+        justify-content: flex-start;
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-right: 5px;
+        }
+    }
+    .item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        align-items: center;
+        border-top: 1px solid #d8d9db;
+        &:hover {
+            cursor: pointer;
+            opacity: 0.9;
+        }
+    }
+    .coinNumber {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 5px;
+    }
+    .iconIcon {
+        display: inline-block;
+        position: relative;
+        width: 16px;
+        height: 16px;
+        margin-left: 5px;
+    }
+}

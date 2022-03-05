@@ -1,17 +1,48 @@
 .main {
-    width: 35vw;
-    height: 35vw;
-    max-width: 150px;
-    max-height: 150px;
+    width: 47vw;
+    height: 47vw;
+    max-width: 220px;
+    max-height: 220px;
     position: absolute;
-    border: 5px solid rgba(0, 0, 0, 0.8);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     top: 50%;
     left: 50%;
-    font-size: 30px;
     transform: translate(-50%, -50%);
+    background-image: url('../../../../assets/images/mainWheel.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    .time {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding-top: 5%;
+        color: #fff;
+
+        span {
+            margin: 0;
+            font-size: calc(4px + 2vmin);
+            @media screen and (min-width: 545px) {
+                font-size: 14px;
+            }
+        }
+
+        time {
+            margin: 0;
+            font-weight: 600;
+            font-size: calc(10px + 2vmin);
+            @media screen and (min-width: 545px) {
+                font-size: 20px;
+            }
+        }
+    }
 }
