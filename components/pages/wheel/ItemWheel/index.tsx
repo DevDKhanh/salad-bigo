@@ -27,7 +27,7 @@ function ItemWheel({ isActive, img, winTimes, isStarting }: props) {
         if (!isStarting) {
             setCoinBet((prev) => prev + currentBet);
         }
-    }, [isStarting]);
+    }, [isStarting, currentBet]);
 
     return (
         <div
