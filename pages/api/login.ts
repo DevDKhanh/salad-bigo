@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { serialize } from 'cookie';
-import axiosClient from '../../api';
-import { API_URL } from '../../constants/config';
 import authAPI from '../../api/auth';
 import wheelAPI from '../../api/wheel';
 

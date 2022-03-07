@@ -3,8 +3,17 @@ import axiosClient from '.';
 const routeName = '/user';
 
 const authAPI = {
+    changePass: (data: any, token: string, tokenAxios?: any) => {
+        const url = `${routeName}/change-password`;
+        return axiosClient.post(url, data, {
+            cancelToken: tokenAxios,
+            headers: {
+                authorization: 'Bearer ' + token,
+            },
+        });
+    },
     signup: (data: any, tokenAxios?: any) => {
-        const url = `${routeName}/register`;
+        const url = `${routeName}/register-user`;
         return axiosClient.post(url, data, {
             cancelToken: tokenAxios,
         });
