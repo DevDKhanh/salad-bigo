@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import axiosClient from '../../../api';
+import { getItemStorage } from '../../../common/utils/localStorage';
 import { login } from '../../../redux/actions/auth';
 import { toggleLoading } from '../../../redux/actions/interface';
 import { setCoin, setUserData } from '../../../redux/actions/user';
@@ -34,11 +35,12 @@ function SplashScreen({ children }: props) {
 
                 /*---------- current user logged, update state ----------*/
                 if (res.code === 1) {
+                    const coinLocal = getItemStorage('coin');
                     const token = res.data.token;
                     const userData = res.data.userData;
                     const listItemWheel = res.data.listItemWheel;
                     dispatch(login({ token }));
-                    dispatch(setCoin(userData.coin));
+                    dispatch(setCoin(coinLocal || userData.coin));
                     dispatch(setUserData(userData));
                     dispatch(setList(listItemWheel));
                 }

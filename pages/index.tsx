@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { RiArrowRightSLine } from 'react-icons/ri';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../redux/reducers';
 import Control from '../components/pages/wheel/Control';
@@ -13,14 +13,19 @@ import Timer from '../components/pages/wheel/Timer';
 import WinPopup from '../components/pages/wheel/WinPopup';
 import RequiredAuth from '../components/protected/RequiredAuth';
 import style from '../styles/Home.module.scss';
+import { getItemStorage } from '../common/utils/localStorage';
+import { setCoin } from '../redux/actions/user';
 
 function WheelPage() {
+    const dispatch = useDispatch();
     const countDownId: any = useRef();
+
     const [currentItem, setCurrentItem] = useState<number>(0);
     const [isStarting, setIsStarting] = useState<boolean>(false);
     const [result, setResult] = useState<any>(null);
 
     const { listWheel } = useSelector((state: RootState) => state.wheel);
+    const { coin } = useSelector((state: RootState) => state.user);
     /*---------- Effect active item ----------*/
     useEffect(() => {
         if (!isStarting) {
@@ -51,7 +56,33 @@ function WheelPage() {
                 if (countDown === 0) {
                     const gift = Math.floor(Math.random() * listWheel.length);
                     setCurrentItem(gift);
-                    setResult(gift);
+                    const getListBet = getItemStorage('listBet'); //demo
+                    let coinBet = 0;
+                    let winCoin = 0;
+                    let listBet = listWheel.filter(
+                        (item: any, index: number) => {
+                            if (getListBet[item.id]) {
+                                return item;
+                            }
+                            return null;
+                        }
+                    );
+                    if (getListBet) {
+                        for (let i in getListBet) {
+                            coinBet += getListBet[i].betCoin;
+                        }
+                    }
+                    if (getListBet[gift]) {
+                        winCoin =
+                            getListBet[gift].betCoin * listWheel[gift].rate;
+                    }
+                    dispatch(setCoin(coin + winCoin));
+                    setResult({
+                        winItem: listWheel[gift],
+                        coinBet,
+                        winCoin,
+                        listBet,
+                    });
                 }
                 if (countDown > 0) {
                     setCurrentItem((prev: number) => {
@@ -82,6 +113,7 @@ function WheelPage() {
                                 <ItemWheel
                                     key={item.id}
                                     img={item.image}
+                                    id={item.id}
                                     isStarting={isStarting}
                                     winTimes={item.rate}
                                     isActive={currentItem === index}

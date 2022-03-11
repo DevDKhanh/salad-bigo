@@ -10,21 +10,22 @@ interface props {
 
 function Timer({ onStart, isStarting }: props) {
     const { userData } = useSelector((state: RootState) => state.user);
-    const timeCounter = userData.rotation_time + 6;
-    const [timer, setTimer] = useState<any>(0);
+    const [timer, setTimer] = useState<number>(10);
     /*---------- Count down start wheel ----------*/
     useEffect(() => {
+        if (!isStarting) {
+            setTimer((prev: number) => 10);
+        }
         let idTime = setInterval(() => {
             if (!isStarting) {
-                const secondary = new Date().getSeconds();
-                setTimer((prev: any) => {
-                    if (secondary == 0 || secondary % timeCounter === 0) {
+                setTimer((prev: number) => {
+                    if (prev <= 1) {
                         return 0;
                     }
-                    return timeCounter - (secondary % timeCounter);
+                    return prev - 1;
                 });
             }
-        }, 10);
+        }, 1000);
         return () => {
             clearInterval(idTime);
         };
@@ -32,8 +33,7 @@ function Timer({ onStart, isStarting }: props) {
 
     /*---------- Start wheel if done countdown ----------*/
     useEffect(() => {
-        const secondary = new Date().getSeconds();
-        if (secondary == 0 || secondary % timeCounter === 0) {
+        if (timer == 0) {
             onStart();
         }
     }, [timer]);

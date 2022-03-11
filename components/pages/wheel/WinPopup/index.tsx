@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
+import { setCoin } from '../../../../redux/actions/user';
+import { useDispatch, useSelector } from 'react-redux';
 
 import backgrounds from '../../../../constants/images/background';
 import icons from '../../../../constants/images/icon';
 import { RootState } from '../../../../redux/reducers';
 import style from './WinPopup.module.scss';
+import { getItemStorage } from '../../../../common/utils/localStorage';
 
 /*===========> INTERFACE <==========*/
 interface props {
@@ -15,14 +17,13 @@ interface props {
 
 /*===========> MAIN COMPONENT <==========*/
 function WinPopup({ result, onClose }: props) {
-    const { listWheel } = useSelector((state: RootState) => state.wheel);
     return (
         <div>
             <div className={style.overlay} onClick={onClose}></div>
             <div className={style.main} onClick={onClose}>
                 <div className={style.table}>
                     <div className={style.imgWin}>
-                        <img src={listWheel[result].image} alt="dish" />
+                        <img src={result.winItem.image} alt="dish" />
                     </div>
                     <div className={style.mainInfo}>
                         <div className={style.img}>
@@ -36,24 +37,17 @@ function WinPopup({ result, onClose }: props) {
                                         Bạn đã đặt:
                                     </span>
                                     <div className={style.listBet}>
-                                        <div className={style.item}>
-                                            <img
-                                                src={icons.dish5.src}
-                                                alt={'bet-item'}
-                                            />
-                                        </div>
-                                        <div className={style.item}>
-                                            <img
-                                                src={icons.dish3.src}
-                                                alt={'bet-item'}
-                                            />
-                                        </div>
-                                        <div className={style.item}>
-                                            <img
-                                                src={icons.dish1.src}
-                                                alt={'bet-item'}
-                                            />
-                                        </div>
+                                        {result.listBet.map((item: any) => (
+                                            <div
+                                                key={item.id}
+                                                className={style.item}
+                                            >
+                                                <img
+                                                    src={item.image}
+                                                    alt={'bet-item'}
+                                                />
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                                 <div className={style.row}>
@@ -68,7 +62,7 @@ function WinPopup({ result, onClose }: props) {
                                                 layout="fill"
                                             />
                                         </span>
-                                        <span>1000</span>
+                                        <span>{result.winCoin}</span>
                                     </div>
                                 </div>
                                 <div className={style.row}>
@@ -83,7 +77,7 @@ function WinPopup({ result, onClose }: props) {
                                                 layout="fill"
                                             />
                                         </span>
-                                        <span>1000</span>
+                                        <span>{result.coinBet}</span>
                                     </div>
                                 </div>
                             </div>
@@ -95,4 +89,4 @@ function WinPopup({ result, onClose }: props) {
     );
 }
 
-export default WinPopup;
+export default memo(WinPopup);

@@ -9,7 +9,7 @@ import icons from '../../../../constants/images/icon';
 import style from './InfoCoin.module.scss';
 
 function InfoCoin() {
-    const { userData } = useSelector((state: RootState) => state.user);
+    const { userData, coin } = useSelector((state: RootState) => state.user);
     return (
         <div className={style.main}>
             <div className={style.coin}>
@@ -18,7 +18,7 @@ function InfoCoin() {
                     <span className={style.iconIcon}>
                         <Image src={icons.coin} alt={'coin'} layout="fill" />
                     </span>
-                    <span>{userData.coin}</span>
+                    <span>{coin}</span>
                 </div>
             </div>
             <div className={style.groupBtn}>

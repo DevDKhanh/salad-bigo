@@ -1,33 +1,71 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Image from 'next/image';
 import style from './ItemWheel.module.scss';
 import { RootState } from '../../../../redux/reducers';
 import icons from '../../../../constants/images/icon';
+import { setCoin } from '../../../../redux/actions/user';
+import { toast } from 'react-toastify';
+import {
+    getItemStorage,
+    setItemStorage,
+} from '../../../../common/utils/localStorage';
 
 interface props {
+    id: any;
     isActive?: boolean;
     img: string;
     isStarting: boolean;
     winTimes: number;
 }
 
-function ItemWheel({ isActive, img, winTimes, isStarting }: props) {
+function ItemWheel({ id, isActive, img, winTimes, isStarting }: props) {
+    const dispatch = useDispatch();
     const { currentBet, coin } = useSelector((state: RootState) => state.user);
     const [coinBet, setCoinBet] = useState<number>(0);
 
     useEffect(() => {
         if (!isStarting) {
             setCoinBet(0);
+            setItemStorage('listBet', {}); //demo
         }
     }, [isStarting]);
 
     const handleBet = useCallback(() => {
         if (!isStarting) {
-            setCoinBet((prev) => prev + currentBet);
+            if (coin >= currentBet) {
+                /*---------- demo ----------*/
+                const getListBet =
+                    getItemStorage('listBet') ||
+                    setItemStorage('listBet', {
+                        [id]: { betCoin: currentBet },
+                    });
+                if (getListBet) {
+                    if (getListBet[id]) {
+                        setItemStorage('listBet', {
+                            ...getListBet,
+                            [id]: {
+                                betCoin: getListBet[id].betCoin + currentBet,
+                            },
+                        });
+                    } else {
+                        setItemStorage('listBet', {
+                            ...getListBet,
+                            [id]: { betCoin: currentBet },
+                        });
+                    }
+                }
+                /*---------- end demo ----------*/
+                setCoinBet((prev) => prev + currentBet);
+                dispatch(setCoin(coin - currentBet));
+            } else {
+                toast.warn(
+                    'Bạn không đủ xu để đặt cược, hãy nạp thêm để tiếp tục'
+                );
+            }
         }
-    }, [isStarting, currentBet]);
+    }, [isStarting, currentBet, coin]);
 
     return (
         <div

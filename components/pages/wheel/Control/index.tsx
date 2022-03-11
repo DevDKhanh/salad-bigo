@@ -22,39 +22,39 @@ function Control() {
                 <div
                     className={clsx([
                         style.btnBet,
-                        { [style.active]: currentBet === 100 },
+                        { [style.active]: currentBet === 10 },
                     ])}
-                    onClick={() => dispatch(setCurrentBet(100))}
+                    onClick={() => dispatch(setCurrentBet(10))}
                 >
-                    100
+                    10
                 </div>
                 <div
                     className={clsx([
                         style.btnBet,
-                        { [style.active]: currentBet === 200 },
+                        { [style.active]: currentBet === 20 },
                     ])}
-                    onClick={() => dispatch(setCurrentBet(200))}
+                    onClick={() => dispatch(setCurrentBet(20))}
                 >
-                    200
+                    20
                 </div>
 
                 <div
                     className={clsx([
                         style.btnBet,
-                        { [style.active]: currentBet === 500 },
+                        { [style.active]: currentBet === 50 },
                     ])}
-                    onClick={() => dispatch(setCurrentBet(500))}
+                    onClick={() => dispatch(setCurrentBet(50))}
                 >
-                    500
+                    50
                 </div>
                 <div
                     className={clsx([
                         style.btnBet,
-                        { [style.active]: currentBet === 1000 },
+                        { [style.active]: currentBet === 100 },
                     ])}
-                    onClick={() => dispatch(setCurrentBet(1000))}
+                    onClick={() => dispatch(setCurrentBet(100))}
                 >
-                    1000
+                    100
                 </div>
             </div>
         </div>
