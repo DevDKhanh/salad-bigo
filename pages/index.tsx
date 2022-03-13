@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,8 +13,8 @@ import Timer from '../components/pages/wheel/Timer';
 import WinPopup from '../components/pages/wheel/WinPopup';
 import RequiredAuth from '../components/protected/RequiredAuth';
 import style from '../styles/Home.module.scss';
-import { getItemStorage } from '../common/utils/localStorage';
-import { setCoin } from '../redux/actions/user';
+import axiosClient from '../api';
+import { setCoin, setUserData } from '../redux/actions/user';
 
 function WheelPage() {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function WheelPage() {
     const [result, setResult] = useState<any>(null);
 
     const { listWheel } = useSelector((state: RootState) => state.wheel);
-    const { coin } = useSelector((state: RootState) => state.user);
+    const { coin, userData } = useSelector((state: RootState) => state.user);
     /*---------- Effect active item ----------*/
     useEffect(() => {
         if (!isStarting) {
@@ -44,58 +44,55 @@ function WheelPage() {
     }, [isStarting]);
 
     /*---------- Start wheel ----------*/
-    const handleStart = () => {
+    const handleStart = useCallback(async () => {
         if (!isStarting) {
             setIsStarting(true);
-            let countDown = 45;
             countDownId.current = setInterval(() => {
-                if (countDown <= -15) {
-                    setIsStarting(false);
-                    clearInterval(countDownId.current);
-                }
-                if (countDown === 0) {
-                    const gift = Math.floor(Math.random() * listWheel.length);
-                    setCurrentItem(gift);
-                    const getListBet = getItemStorage('listBet'); //demo
-                    let coinBet = 0;
-                    let winCoin = 0;
-                    let listBet = listWheel.filter(
-                        (item: any, index: number) => {
-                            if (getListBet[item.id]) {
-                                return item;
-                            }
-                            return null;
-                        }
-                    );
-                    if (getListBet) {
-                        for (let i in getListBet) {
-                            coinBet += getListBet[i].betCoin;
-                        }
+                setCurrentItem((prev: number) => {
+                    if (prev >= 7) {
+                        return 0;
                     }
-                    if (getListBet[gift]) {
-                        winCoin =
-                            getListBet[gift].betCoin * listWheel[gift].rate;
-                    }
-                    dispatch(setCoin(coin + winCoin));
-                    setResult({
-                        winItem: listWheel[gift],
-                        coinBet,
-                        winCoin,
-                        listBet,
-                    });
-                }
-                if (countDown > 0) {
-                    setCurrentItem((prev: number) => {
-                        if (prev >= 7) {
-                            return 0;
-                        }
-                        return prev + 1;
-                    });
-                }
-                countDown--;
+                    return prev + 1;
+                });
             }, 100);
+            handleGetGift();
         }
-    };
+    }, [isStarting]);
+
+    const handleGetGift = useCallback(async () => {
+        if (!isStarting) {
+            const res: any = await axiosClient.post<any>(
+                `${origin}/api/get-gift`,
+                {
+                    date: userData.rotation_time,
+                }
+            );
+            const {
+                rotation_time_next,
+                rotation_result,
+                list_bet_coin,
+                coinWin,
+                coinBet,
+            } = res.result.payload;
+
+            if (!!rotation_result) {
+                clearInterval(countDownId.current);
+                dispatch(
+                    setUserData({
+                        ...userData,
+                        rotation_time: rotation_time_next,
+                    })
+                );
+                dispatch(setCoin(coin + coinWin));
+                /*===========> set result <==========*/
+                setResult({ list_bet_coin, rotation_result, coinWin, coinBet });
+                setIsStarting(false);
+            } else {
+                handleGetGift();
+            }
+        }
+    }, [isStarting, coin]);
+
     useEffect(() => () => clearInterval(countDownId.current), []);
 
     return (
@@ -113,10 +110,10 @@ function WheelPage() {
                                 <ItemWheel
                                     key={item.id}
                                     img={item.image}
-                                    id={item.id}
                                     isStarting={isStarting}
                                     winTimes={item.rate}
                                     isActive={currentItem === index}
+                                    data={item}
                                 />
                             );
                         })}

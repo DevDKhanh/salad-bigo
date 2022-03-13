@@ -1,10 +1,14 @@
 import React from 'react';
-import Image from 'next/image';
-import style from './InfoWallet.module.scss';
-import icons from '../../../../constants/images/icon';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
+
+import { RootState } from '../../../../redux/reducers';
+import icons from '../../../../constants/images/icon';
+import style from './InfoWallet.module.scss';
 
 function InfoWallet() {
+    const { coin } = useSelector((state: RootState) => state.user);
     return (
         <div className={style.container}>
             <div className="page-main">
@@ -19,7 +23,7 @@ function InfoWallet() {
                                     layout="fill"
                                 />
                             </span>
-                            240.000
+                            {coin}
                         </div>
                     </div>
                     <div className={style.groupBtn}>

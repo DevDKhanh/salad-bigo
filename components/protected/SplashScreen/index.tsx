@@ -35,12 +35,11 @@ function SplashScreen({ children }: props) {
 
                 /*---------- current user logged, update state ----------*/
                 if (res.code === 1) {
-                    const coinLocal = getItemStorage('coin');
                     const token = res.data.token;
                     const userData = res.data.userData;
                     const listItemWheel = res.data.listItemWheel;
                     dispatch(login({ token }));
-                    dispatch(setCoin(coinLocal || userData.coin));
+                    dispatch(setCoin(userData.coin));
                     dispatch(setUserData(userData));
                     dispatch(setList(listItemWheel));
                 }

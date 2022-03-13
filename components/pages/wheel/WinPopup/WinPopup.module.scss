@@ -58,7 +58,6 @@
     .mainInfo {
         min-height: 100px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
         padding: 11px;
         padding-top: 12%;
@@ -89,6 +88,7 @@
         }
         .img {
             width: 25%;
+            margin-right: 10%;
         }
         .coinNumber {
             display: flex;

@@ -10,7 +10,7 @@ function Wallet() {
     return (
         <RequiredAuth>
             <div className={style.container}>
-                <NavHeader href={'/wheel'} title="Xu của tôi" />
+                <NavHeader href={'/'} title="Xu của tôi" />
                 <InfoWallet />
                 <NavHistoryWallet />
                 <div className="page-main">

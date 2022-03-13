@@ -30,15 +30,21 @@ function NavAction() {
 
     return (
         <div className={style.container}>
-            <div className={style.item}>
-                <span>Xu của tôi</span>
-                <div className={style.coinNumber}>
-                    <span>{coin}</span>
-                    <span className={style.iconIcon}>
-                        <Image src={icons.coin} alt={'coin'} layout="fill" />
-                    </span>
-                </div>
-            </div>
+            <Link href="/wallet">
+                <a className={style.item}>
+                    <span>Xu của tôi</span>
+                    <div className={style.coinNumber}>
+                        <span>{coin}</span>
+                        <span className={style.iconIcon}>
+                            <Image
+                                src={icons.coin}
+                                alt={'coin'}
+                                layout="fill"
+                            />
+                        </span>
+                    </div>
+                </a>
+            </Link>
             <Link href="/">
                 <a className={style.item}>
                     <span>Điều khoản chính sách</span>

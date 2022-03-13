@@ -11,18 +11,21 @@ import {
     getItemStorage,
     setItemStorage,
 } from '../../../../common/utils/localStorage';
+import axiosClient from '../../../../api';
 
 interface props {
-    id: any;
+    data: any;
     isActive?: boolean;
     img: string;
     isStarting: boolean;
     winTimes: number;
 }
 
-function ItemWheel({ id, isActive, img, winTimes, isStarting }: props) {
+function ItemWheel({ data, isActive, img, winTimes, isStarting }: props) {
     const dispatch = useDispatch();
-    const { currentBet, coin } = useSelector((state: RootState) => state.user);
+    const { currentBet, coin, userData } = useSelector(
+        (state: RootState) => state.user
+    );
     const [coinBet, setCoinBet] = useState<number>(0);
 
     useEffect(() => {
@@ -32,33 +35,22 @@ function ItemWheel({ id, isActive, img, winTimes, isStarting }: props) {
         }
     }, [isStarting]);
 
-    const handleBet = useCallback(() => {
+    const handleBet = useCallback(async () => {
         if (!isStarting) {
             if (coin >= currentBet) {
-                /*---------- demo ----------*/
-                const getListBet =
-                    getItemStorage('listBet') ||
-                    setItemStorage('listBet', {
-                        [id]: { betCoin: currentBet },
-                    });
-                if (getListBet) {
-                    if (getListBet[id]) {
-                        setItemStorage('listBet', {
-                            ...getListBet,
-                            [id]: {
-                                betCoin: getListBet[id].betCoin + currentBet,
-                            },
-                        });
-                    } else {
-                        setItemStorage('listBet', {
-                            ...getListBet,
-                            [id]: { betCoin: currentBet },
-                        });
+                const res: any = await axiosClient.post<any>(
+                    `${origin}/api/bet`,
+                    {
+                        date: userData.rotation_time,
+                        rotation_code: data.rotation_code,
+                        rotation_time: userData.rotation_time,
+                        bet_coin: currentBet,
                     }
+                );
+                if (res) {
+                    setCoinBet((prev) => prev + currentBet);
+                    dispatch(setCoin(coin - currentBet));
                 }
-                /*---------- end demo ----------*/
-                setCoinBet((prev) => prev + currentBet);
-                dispatch(setCoin(coin - currentBet));
             } else {
                 toast.warn(
                     'Bạn không đủ xu để đặt cược, hãy nạp thêm để tiếp tục'

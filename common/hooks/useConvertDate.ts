@@ -1,4 +1,4 @@
-export const useConvertDate = (date: string) => {
+export const useConvertDate = (date: string | number) => {
     const newDate = new Date(date);
     let h: any = newDate.getHours();
     let m: any = newDate.getMinutes();
@@ -9,7 +9,7 @@ export const useConvertDate = (date: string) => {
 
     return {
         getDate() {
-            return `${yyyy}-${checkTime(mm)}-${checkTime(dd)}`;
+            return `${checkTime(dd)}/${checkTime(mm)}/${yyyy}`;
         },
         getTime() {
             return `${checkTime(h)}:${checkTime(m)}`;

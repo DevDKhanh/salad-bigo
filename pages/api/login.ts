@@ -12,7 +12,7 @@ export default async function handler(
     authAPI
         .login(body)
         .then((data: any) => {
-            if (data.code === 0 && listItemWheel?.code === 0) {
+            if (data.code === 0) {
                 res.setHeader('Set-Cookie', [
                     serialize('access-token', data.payload.token, {
                         path: '/',
@@ -22,7 +22,7 @@ export default async function handler(
             }
             return res
                 .status(200)
-                .json({ ...data, listItemWheel: listItemWheel.payload });
+                .json({ ...data, listItemWheel: listItemWheel });
         })
         .catch((err) => {
             return res.status(500);

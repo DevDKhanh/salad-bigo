@@ -23,33 +23,36 @@ function WinPopup({ result, onClose }: props) {
             <div className={style.main} onClick={onClose}>
                 <div className={style.table}>
                     <div className={style.imgWin}>
-                        <img src={result.winItem.image} alt="dish" />
+                        <img src={result.rotation_result.image} alt="dish" />
                     </div>
                     <div className={style.mainInfo}>
                         <div className={style.img}>
                             <img src={backgrounds.nice.src} alt="win" />
                         </div>
                         <div>
-                            <h3>Rotation lucky đã chọn Humburger</h3>
+                            <h3>Rotation lucky đã chọn</h3>
                             <div>
                                 <div className={style.row}>
                                     <span className={style.label}>
                                         Bạn đã đặt:
                                     </span>
                                     <div className={style.listBet}>
-                                        {result.listBet.map((item: any) => (
-                                            <div
-                                                key={item.id}
-                                                className={style.item}
-                                            >
-                                                <img
-                                                    src={item.image}
-                                                    alt={'bet-item'}
-                                                />
-                                            </div>
-                                        ))}
+                                        {result?.list_bet_coin.map(
+                                            (item: any, i: number) => (
+                                                <div
+                                                    key={i}
+                                                    className={style.item}
+                                                >
+                                                    <img
+                                                        src={item.image}
+                                                        alt={'bet-item'}
+                                                    />
+                                                </div>
+                                            )
+                                        )}
                                     </div>
                                 </div>
+
                                 <div className={style.row}>
                                     <span className={style.label}>
                                         Chiến thắng:
@@ -62,7 +65,7 @@ function WinPopup({ result, onClose }: props) {
                                                 layout="fill"
                                             />
                                         </span>
-                                        <span>{result.winCoin}</span>
+                                        <span>{result?.coinWin}</span>
                                     </div>
                                 </div>
                                 <div className={style.row}>
@@ -77,7 +80,7 @@ function WinPopup({ result, onClose }: props) {
                                                 layout="fill"
                                             />
                                         </span>
-                                        <span>{result.coinBet}</span>
+                                        <span>{result?.coinBet}</span>
                                     </div>
                                 </div>
                             </div>

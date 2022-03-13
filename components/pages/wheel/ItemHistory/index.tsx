@@ -2,19 +2,36 @@ import React from 'react';
 import Image from 'next/image';
 import icons from '../../../../constants/images/icon';
 import style from './ItemHistory.module.scss';
+import { useConvertDate } from '../../../../common/hooks/useConvertDate';
+/*===========> INTERFACE <==========*/
+interface item {
+    rotation_code: string;
+    user_code: string;
+    rotation_time: number;
+    image: string;
+    coinBet: number;
+    coinWin: number;
+}
 
-function ItemHistory() {
+/*===========> MAIN COMPONENT <==========*/
+function ItemHistory({ data }: { data: item }) {
+    const convertDate = useConvertDate;
+
     return (
         <div className={style.main}>
             <div className={style.title}>
                 <span>Rotation lucky đã chọn</span>
                 <span className={style.icon}>
-                    <Image src={icons.dish1} alt={'hinh anh'} layout="fill" />
+                    <Image src={icons.dish1} alt={data.image} layout="fill" />
                 </span>
             </div>
             <div className={style.bet}>
                 <div className={style.item}>
-                    <div>Chiến thắng:</div>
+                    <div
+                        style={{ color: data.coinWin ? '#199250' : '#CC3131' }}
+                    >
+                        {data.coinWin ? 'Chiến thắng' : 'Thua cược'}:
+                    </div>
                     <div className={style.coin}>
                         <span className={style.iconIcon}>
                             <Image
@@ -23,7 +40,7 @@ function ItemHistory() {
                                 layout="fill"
                             />
                         </span>
-                        1000
+                        {data.coinWin}
                     </div>
                 </div>
                 <div className={style.item}>
@@ -36,11 +53,14 @@ function ItemHistory() {
                                 layout="fill"
                             />
                         </span>
-                        1000
+                        {data.coinBet}
                     </div>
                 </div>
             </div>
-            <time>20:00/ 28/02/2022</time>
+            <time>
+                {convertDate(data.rotation_time).getTime()}{' '}
+                {convertDate(data.rotation_time).getDate()}
+            </time>
         </div>
     );
 }

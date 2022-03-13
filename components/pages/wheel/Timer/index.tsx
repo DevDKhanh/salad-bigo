@@ -10,33 +10,38 @@ interface props {
 
 function Timer({ onStart, isStarting }: props) {
     const { userData } = useSelector((state: RootState) => state.user);
-    const [timer, setTimer] = useState<number>(10);
+    const [timer, setTimer] = useState<number>(-1);
+
     /*---------- Count down start wheel ----------*/
     useEffect(() => {
-        if (!isStarting) {
-            setTimer((prev: number) => 10);
-        }
         let idTime = setInterval(() => {
             if (!isStarting) {
-                setTimer((prev: number) => {
-                    if (prev <= 1) {
-                        return 0;
+                if (userData.rotation_time) {
+                    /*===========> GET TIME <==========*/
+                    const distance =
+                        userData.rotation_time + 45000 - new Date().getTime();
+                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    /*===========> SET COUNT DOWN  <==========*/
+                    if (seconds <= 0) {
+                        return setTimer(0);
+                    } else {
+                        setTimer(seconds);
                     }
-                    return prev - 1;
-                });
+                }
             }
-        }, 1000);
+        }, 10);
         return () => {
             clearInterval(idTime);
         };
-    }, [isStarting]);
+    }, [isStarting, userData.rotation_time]);
 
     /*---------- Start wheel if done countdown ----------*/
     useEffect(() => {
-        if (timer == 0) {
+        if (timer == 0 && userData.rotation_time) {
             onStart();
         }
-    }, [timer]);
+    }, [timer, userData.rotation_time]);
 
     return (
         <div className={style.main}>
