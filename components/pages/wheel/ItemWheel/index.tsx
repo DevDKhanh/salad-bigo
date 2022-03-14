@@ -37,6 +37,14 @@ function ItemWheel({ data, isActive, img, winTimes, isStarting }: props) {
 
     const handleBet = useCallback(async () => {
         if (!isStarting) {
+            /*---------- get count down < 10s can't bet ----------*/
+            const distance =
+                userData.rotation_time + 45000 - new Date().getTime();
+            if (distance < 10000) {
+                return toast.warn(
+                    'Hết thời gian đặt cược rồi nhé, đợi lượt sau nhé bro, chúc may mắn'
+                );
+            }
             if (coin >= currentBet) {
                 const res: any = await axiosClient.post<any>(
                     `${origin}/api/bet`,
