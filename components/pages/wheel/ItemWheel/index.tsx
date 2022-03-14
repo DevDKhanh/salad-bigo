@@ -46,18 +46,17 @@ function ItemWheel({ data, isActive, img, winTimes, isStarting }: props) {
                 );
             }
             if (coin >= currentBet) {
-                const res: any = await axiosClient.post<any>(
-                    `${origin}/api/bet`,
-                    {
+                try {
+                    setCoinBet((prev) => prev + currentBet);
+                    dispatch(setCoin(coin - currentBet));
+                    await axiosClient.post<any>(`${origin}/api/bet`, {
                         date: userData.rotation_time,
                         rotation_code: data.rotation_code,
                         rotation_time: userData.rotation_time,
                         bet_coin: currentBet,
-                    }
-                );
-                if (res) {
-                    setCoinBet((prev) => prev + currentBet);
-                    dispatch(setCoin(coin - currentBet));
+                    });
+                } catch (e) {
+                    toast.error('Vui lòng tải lại trang');
                 }
             } else {
                 toast.warn(
