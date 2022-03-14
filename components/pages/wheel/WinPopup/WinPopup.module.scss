@@ -46,6 +46,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .power {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 60px;
+            font-weight: 700;
+            color: rgb(255, 94, 0);
+            animation: showPow 0.6s ease-in-out infinite;
+        }
         @media screen and (max-width: 450px) {
             width: 50vw;
             height: 30vw;
@@ -53,6 +63,7 @@
 
         img {
             width: 30%;
+            animation: showPow 0.6s ease-in-out infinite;
         }
     }
     .mainInfo {
@@ -87,8 +98,10 @@
             }
         }
         .img {
+            position: relative;
             width: 25%;
             margin-right: 10%;
+            animation: showStar 1s ease-in-out infinite;
         }
         .coinNumber {
             display: flex;
@@ -117,5 +130,29 @@
     }
     100% {
         transform: scale(1);
+    }
+}
+
+@keyframes showPow {
+    0% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes showStar {
+    0% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(5deg);
     }
 }

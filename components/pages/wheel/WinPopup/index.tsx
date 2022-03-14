@@ -24,6 +24,11 @@ function WinPopup({ result, onClose }: props) {
                 <div className={style.table}>
                     <div className={style.imgWin}>
                         <img src={result.rotation_result.image} alt="dish" />
+                        {result.rotation_result.number > 0 && (
+                            <span className={style.power}>
+                                x{result.rotation_result.number}
+                            </span>
+                        )}
                     </div>
                     <div className={style.mainInfo}>
                         <div className={style.img}>
