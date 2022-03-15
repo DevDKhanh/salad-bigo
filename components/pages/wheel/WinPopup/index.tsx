@@ -1,13 +1,9 @@
 import React, { memo } from 'react';
 import Image from 'next/image';
-import { setCoin } from '../../../../redux/actions/user';
-import { useDispatch, useSelector } from 'react-redux';
 
 import backgrounds from '../../../../constants/images/background';
 import icons from '../../../../constants/images/icon';
-import { RootState } from '../../../../redux/reducers';
 import style from './WinPopup.module.scss';
-import { getItemStorage } from '../../../../common/utils/localStorage';
 
 /*===========> INTERFACE <==========*/
 interface props {

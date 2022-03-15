@@ -72,6 +72,7 @@ function WheelPage() {
                 rotation_result,
                 list_bet_coin,
                 coinWin,
+                coin_user,
                 coinBet,
             } = res.result.payload;
 
@@ -83,7 +84,7 @@ function WheelPage() {
                         rotation_time: rotation_time_next,
                     })
                 );
-                dispatch(setCoin(coin + coinWin));
+                dispatch(setCoin(coin_user));
                 /*===========> set result <==========*/
                 setResult({ list_bet_coin, rotation_result, coinWin, coinBet });
                 setIsStarting(false);
@@ -91,7 +92,7 @@ function WheelPage() {
                 handleGetGift();
             }
         }
-    }, [isStarting, coin]);
+    }, [isStarting]);
 
     useEffect(() => () => clearInterval(countDownId.current), []);
 
