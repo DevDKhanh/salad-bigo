@@ -13,9 +13,9 @@ export default async function handler(
         );
         console.log(cookies['access-token']);
         if (cookies['access-token']) {
+            const listItemWheel: any = await wheelAPI.listItem();
             const tokenStr = cookies['access-token'];
             const ping: any = await authAPI.ping(tokenStr);
-            const listItemWheel: any = await wheelAPI.listItem();
             if (ping?.code === 0) {
                 return res.status(200).json({
                     code: 1,

@@ -6,7 +6,7 @@ import { getItemStorage } from '../../../common/utils/localStorage';
 import { login } from '../../../redux/actions/auth';
 import { toggleLoading } from '../../../redux/actions/interface';
 import { setCoin, setUserData } from '../../../redux/actions/user';
-import { setList } from '../../../redux/actions/wheel';
+import { setList, setListBet } from '../../../redux/actions/wheel';
 import { RootState } from '../../../redux/reducers';
 
 /*===========> INTERFACE <==========*/

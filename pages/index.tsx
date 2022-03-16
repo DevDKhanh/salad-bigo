@@ -23,9 +23,10 @@ function WheelPage() {
     const [currentItem, setCurrentItem] = useState<number>(0);
     const [isStarting, setIsStarting] = useState<boolean>(false);
     const [result, setResult] = useState<any>(null);
+    const [listBet, setListBet] = useState<any>([]);
 
     const { listWheel } = useSelector((state: RootState) => state.wheel);
-    const { coin, userData } = useSelector((state: RootState) => state.user);
+    const { userData } = useSelector((state: RootState) => state.user);
     /*---------- Effect active item ----------*/
     useEffect(() => {
         if (!isStarting) {
@@ -42,6 +43,26 @@ function WheelPage() {
             };
         }
     }, [isStarting]);
+
+    useEffect(() => {
+        if (!isStarting) {
+            /********** Get list bet current **********/
+            (async () => {
+                try {
+                    const res: any = await axiosClient.post<any>(
+                        `${origin}/api/list-bet`,
+                        {
+                            date: userData.rotation_time,
+                        }
+                    );
+                    setListBet(res.listBet.payload);
+                } catch (e) {}
+            })();
+        } else {
+            /********** clear list bet UI **********/
+            setListBet([]);
+        }
+    }, [isStarting, userData.rotation_time]);
 
     /*---------- Start wheel ----------*/
     const handleStart = useCallback(async () => {
@@ -107,6 +128,9 @@ function WheelPage() {
                     {/***********  List item ***********/}
                     <div className={style.listItem}>
                         {listWheel.map((item: any, index: number) => {
+                            const itemBet: any = listBet.filter((bet: any) => {
+                                return bet.rotation_code === item.rotation_code;
+                            });
                             return (
                                 <ItemWheel
                                     key={item.id}
@@ -115,6 +139,7 @@ function WheelPage() {
                                     winTimes={item.rate}
                                     isActive={currentItem === index}
                                     data={item}
+                                    coinBetCurrent={itemBet[0]?.bet_coin || 0}
                                 />
                             );
                         })}

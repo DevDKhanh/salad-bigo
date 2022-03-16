@@ -9,6 +9,15 @@ const wheelAPI = {
             cancelToken: tokenAxios,
         });
     },
+    listBet: (date: number, token: string, tokenAxios?: any) => {
+        const url = `${routeName}/list-bet-coin?rotation_time=${date}`;
+        return axiosClient.get(url, {
+            cancelToken: tokenAxios,
+            headers: {
+                authorization: 'Bearer ' + token,
+            },
+        });
+    },
     getGift: (date: number, token: string, tokenAxios?: any) => {
         const url = `${routeName}/rotation-result?rotation_time=${date}`;
         return axiosClient.get(url, {

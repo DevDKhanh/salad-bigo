@@ -1,17 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
-import Image from 'next/image';
-import style from './ItemWheel.module.scss';
+
 import { RootState } from '../../../../redux/reducers';
-import icons from '../../../../constants/images/icon';
 import { setCoin } from '../../../../redux/actions/user';
 import { toast } from 'react-toastify';
-import {
-    getItemStorage,
-    setItemStorage,
-} from '../../../../common/utils/localStorage';
 import axiosClient from '../../../../api';
+import style from './ItemWheel.module.scss';
 
 interface props {
     data: any;
@@ -19,21 +14,33 @@ interface props {
     img: string;
     isStarting: boolean;
     winTimes: number;
+    coinBetCurrent?: number;
 }
 
-function ItemWheel({ data, isActive, img, winTimes, isStarting }: props) {
+function ItemWheel({
+    data,
+    isActive,
+    img,
+    winTimes,
+    isStarting,
+    coinBetCurrent,
+}: props) {
     const dispatch = useDispatch();
     const { currentBet, coin, userData } = useSelector(
         (state: RootState) => state.user
     );
-    const [coinBet, setCoinBet] = useState<number>(0);
 
+    const [coinBet, setCoinBet] = useState<number>(coinBetCurrent || 0);
+
+    useEffect(() => {}, [isStarting]);
     useEffect(() => {
-        if (!isStarting) {
-            setCoinBet(0);
-            setItemStorage('listBet', {}); //demo
+        if (coinBetCurrent) {
+            setCoinBet((prev) => prev + coinBetCurrent);
         }
-    }, [isStarting]);
+        if (isStarting) {
+            setCoinBet(0);
+        }
+    }, [coinBetCurrent, isStarting]);
 
     const handleBet = useCallback(async () => {
         if (!isStarting) {
@@ -99,4 +106,4 @@ function ItemWheel({ data, isActive, img, winTimes, isStarting }: props) {
     );
 }
 
-export default ItemWheel;
+export default memo(ItemWheel);

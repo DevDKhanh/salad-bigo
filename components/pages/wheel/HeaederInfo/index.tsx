@@ -7,7 +7,7 @@ import { RootState } from '../../../../redux/reducers';
 
 function HeaederInfo() {
     const { userData } = useSelector((state: RootState) => state.user);
-    console.log(userData);
+
     return (
         <div className={style.main}>
             <div className={style.userData}>
