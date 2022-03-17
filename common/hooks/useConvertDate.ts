@@ -8,6 +8,9 @@ export const useConvertDate = (date: string | number) => {
     let dd: any = newDate.getDate();
 
     return {
+        getDateInput() {
+            return `${yyyy}-${checkTime(mm)}-${checkTime(dd)}`;
+        },
         getDate() {
             return `${checkTime(dd)}/${checkTime(mm)}/${yyyy}`;
         },

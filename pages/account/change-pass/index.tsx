@@ -1,3 +1,4 @@
+import axios from 'axios';
 import clsx from 'clsx';
 import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -52,10 +53,13 @@ function ChangePass() {
         if (password && newPassword && rePassword) {
             (async () => {
                 try {
-                    const res: any = await authAPI.changePass(dataForm, token);
+                    const res: any = await axios.post<any>(
+                        '/api/change-pass',
+                        dataForm
+                    );
                     if (res) {
                         const { data } = res;
-                        if (data.code === 0) {
+                        if (data.result.code === 0) {
                             toast.success('Đổi mật khẩu thành công');
                             setDataForm({
                                 password: '',
@@ -63,7 +67,7 @@ function ChangePass() {
                                 newPassword: '',
                             });
                         } else {
-                            toast.warn(data?.message);
+                            toast.warn(data.result?.message);
                         }
                     }
                 } catch (e: any) {

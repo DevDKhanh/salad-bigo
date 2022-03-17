@@ -32,7 +32,6 @@ function History() {
         <RequiredAuth>
             <div className={style.container}>
                 <NavHeader href="/" title="Lịch sử vòng quay" />
-                <NavHistory />
                 <div className="page-main">
                     <ul className={style.list}>
                         {list.map((item, index) => (

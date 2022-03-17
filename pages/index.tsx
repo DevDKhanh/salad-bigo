@@ -95,7 +95,7 @@ function WheelPage() {
                 coinWin,
                 coin_user,
                 coinBet,
-            } = res.result.payload;
+            } = res?.result?.payload;
 
             if (!!rotation_result) {
                 clearInterval(countDownId.current);

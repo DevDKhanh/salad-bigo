@@ -37,6 +37,15 @@ const authAPI = {
             cancelToken: tokenAxios,
         });
     },
+    updateInfo: (data: any, token: string, tokenAxios?: any) => {
+        const url = `${routeName}/update-info-user`;
+        return axiosClient.post(url, data, {
+            cancelToken: tokenAxios,
+            headers: {
+                authorization: 'Bearer ' + token,
+            },
+        });
+    },
     ping: (token: string, tokenAxios?: any) => {
         const url = `${routeName}/profile`;
         return axiosClient.get(url, {
