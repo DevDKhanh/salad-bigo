@@ -1,17 +1,63 @@
+import axios from 'axios';
 import clsx from 'clsx';
+import Head from 'next/head';
 import React, { Fragment, useState } from 'react';
 import { RiSpam2Line } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useConvertCoin } from '../../../common/hooks/useConvertCoin';
 import Button from '../../../components/button/Button';
 import Popup from '../../../components/common/Popup';
 import Input from '../../../components/input/Input';
 import RequiredAuth from '../../../components/protected/RequiredAuth';
 import NavHeader from '../../../components/widgets/NavHeader';
+import { RootState } from '../../../redux/reducers';
 import style from './Deposit.module.scss';
 
 function Deposit() {
+    const convertCoin = useConvertCoin;
+    const { userData } = useSelector((state: RootState) => state.user);
+    const [dataForm, setDataForm] = useState<any>({ amount: '' });
     const [showPopup, setShowPopup] = useState<boolean>(false);
+
+    const infoBank: any = {
+        account_number: '3604123456789',
+        bank_name: 'Vietcombank',
+        account_name: 'Nguyen Hoang Huy',
+        status: '01',
+    };
+
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+        setDataForm((prev: any) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = () => {
+        if (!dataForm?.amount) {
+            return toast.warn('Vui lòng nhập số tiền muốn nạp');
+        }
+
+        (async () => {
+            try {
+                const formSubmit: any = {
+                    ...infoBank,
+                    amount: Number(dataForm?.amount) / 1000,
+                    recharge_code: userData?.user_code,
+                };
+                await axios.post<any>('/api/deposit', formSubmit);
+                setDataForm({ amount: '' });
+                toast.success(
+                    'Gửi yêu cầu nạp tiền thành, bạn vui lòng chờ admin phê duyệt nhé!'
+                );
+            } catch (err) {}
+        })();
+    };
+
     return (
         <RequiredAuth>
+            <Head>
+                <title>Deposit</title>
+            </Head>
             <div className={style.container}>
                 <div>
                     <NavHeader href="/" title="Nạp tiền" />
@@ -20,34 +66,32 @@ function Deposit() {
                             label="Số tiền nạp"
                             placeholder={`Nhập số tiền nạp`}
                             type="text"
-                            name="phone"
+                            name="amount"
+                            value={dataForm?.amount}
+                            onChange={handleChange}
                         />
                         <Input
                             label="Mã nạp tiền"
-                            placeholder={`Nhập mã nạp tiền`}
                             type="text"
-                            value="NT123456"
+                            value={userData?.user_code}
                             readOnly={true}
                         />
                         <Input
                             label="Số tài khoản"
-                            placeholder={`Nhập số tài khoản`}
                             type="text"
-                            value="3604123456789"
+                            value={infoBank.account_number}
                             readOnly={true}
                         />
                         <Input
                             label="Ngân hàng"
-                            placeholder={`Nhập mật khẩu`}
                             type="text"
-                            value="Vietcombank"
+                            value={infoBank.bank_name}
                             readOnly={true}
                         />
                         <Input
                             label="Chủ tài khoản"
-                            placeholder={`Nhập mật khẩu`}
                             type="text"
-                            value="Nguyen hoang huy"
+                            value={infoBank.account_name}
                             readOnly={true}
                         />
                         <div className={style.note}>
@@ -63,9 +107,12 @@ function Deposit() {
                 </div>
                 <Popup
                     title="Thông báo"
-                    content="Bạn xác nhận gửi yêu cầu nạp tiền?"
+                    content={`Bạn xác nhận gửi yêu cầu nạp ${convertCoin(
+                        Number(dataForm?.amount || 0)
+                    )}?`}
                     isShow={showPopup}
                     onClose={() => setShowPopup(false)}
+                    onYes={handleSubmit}
                 />
                 <span className={clsx(['page-main', style.groupBtn])}>
                     <Button primary1 onClick={() => setShowPopup(true)}>

@@ -1,17 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import cookie, { serialize } from 'cookie';
-import wheelAPI from '../../api/wheel';
+import authAPI from '../../api/auth';
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<any>
 ) {
     try {
-        const { page, pageSize } = req.body;
+        const { status, page, pageSize } = req.body;
         const cookies = cookie.parse(
             req ? req.headers.cookie || '' : document.cookie
         );
-        const result = await wheelAPI.history(
+        const result = await authAPI.historyDeposit(
+            status,
             page,
             pageSize,
             cookies['access-token']

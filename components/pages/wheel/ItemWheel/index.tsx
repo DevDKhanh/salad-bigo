@@ -81,6 +81,7 @@ function ItemWheel({
                     [style.active]: isActive && !isStarting,
                     [style.activeStart]: isActive && isStarting,
                     [style.isStarting]: isStarting,
+                    [style.activeBet]: coinBet > 0,
                 },
             ])}
             onClick={handleBet}
@@ -94,14 +95,7 @@ function ItemWheel({
                     <span>{coinBet}</span>
                 </div>
             )}
-            <div
-                className={clsx([
-                    style.winTimes,
-                    { [style.active]: coinBet > 0 },
-                ])}
-            >
-                win {winTimes} times
-            </div>
+            <div className={clsx([style.winTimes])}>win {winTimes} times</div>
         </div>
     );
 }

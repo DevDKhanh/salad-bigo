@@ -35,7 +35,9 @@ function WinPopup({ result, onClose }: props) {
                             <div>
                                 <div className={style.row}>
                                     <span className={style.label}>
-                                        Bạn đã đặt:
+                                        {result?.list_bet_coin?.length > 0
+                                            ? 'Bạn đã đặt:'
+                                            : 'Bạn đã không đặt cược gì cả!'}
                                     </span>
                                     <div className={style.listBet}>
                                         {result?.list_bet_coin.map(

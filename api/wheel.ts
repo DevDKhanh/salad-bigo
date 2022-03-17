@@ -44,8 +44,13 @@ const wheelAPI = {
             },
         });
     },
-    history: (token: string, tokenAxios?: any) => {
-        const url = `${routeName}/history-rotation`;
+    history: (
+        page: number,
+        pageSize: number,
+        token: string,
+        tokenAxios?: any
+    ) => {
+        const url = `${routeName}/history-rotation?pageSize=${pageSize}&currentPage=${page}`;
         return axiosClient.get(url, {
             cancelToken: tokenAxios,
             headers: {
