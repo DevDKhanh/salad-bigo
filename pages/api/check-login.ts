@@ -11,7 +11,6 @@ export default async function handler(
         const cookies = cookie.parse(
             req ? req.headers.cookie || '' : document.cookie
         );
-        console.log(cookies['access-token']);
         if (cookies['access-token']) {
             const listItemWheel: any = await wheelAPI.listItem();
             const tokenStr = cookies['access-token'];

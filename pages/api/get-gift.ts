@@ -11,7 +11,10 @@ export default async function handler(
         const cookies = cookie.parse(
             req ? req.headers.cookie || '' : document.cookie
         );
-        const result = await wheelAPI.getGift(date, cookies['access-token']);
+        const result: any = await wheelAPI.getGift(
+            date,
+            cookies['access-token']
+        );
         return res.status(200).json({ code: 1, result });
     } catch (e) {
         return res.status(200).json({ code: 0, message: 'Not login' });

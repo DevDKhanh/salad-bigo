@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import cookie, { serialize } from 'cookie';
 import authAPI from '../../api/auth';
 
 export default async function handler(
@@ -7,14 +6,8 @@ export default async function handler(
     res: NextApiResponse<any>
 ) {
     try {
-        const body = req.body;
-        const cookies = cookie.parse(
-            req ? req.headers.cookie || '' : document.cookie
-        );
-        const result: any = await authAPI.deposit(
-            body,
-            cookies['access-token']
-        );
+        const data = req.body;
+        const result: any = await authAPI.newPassword(data);
         if (result.code === 0) {
             return res.status(200).json({ code: 1, result });
         } else {

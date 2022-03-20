@@ -47,7 +47,7 @@ function Deposit() {
                 await axios.post<any>('/api/deposit', formSubmit);
                 setDataForm({ amount: '' });
                 toast.success(
-                    'Gửi yêu cầu nạp tiền thành, bạn vui lòng chờ admin phê duyệt nhé!'
+                    'Gửi yêu cầu nạp tiền, bạn vui lòng chờ admin phê duyệt nhé!'
                 );
             } catch (err) {}
         })();

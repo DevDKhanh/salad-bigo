@@ -88,6 +88,22 @@ const authAPI = {
             },
         });
     },
+    forgotPassword: (email: string, tokenAxios?: any) => {
+        const url = `${routeName}/forgot-password`;
+        return axiosClient.post(
+            url,
+            { email },
+            {
+                cancelToken: tokenAxios,
+            }
+        );
+    },
+    newPassword: (data: any, tokenAxios?: any) => {
+        const url = `${routeName}/new-password`;
+        return axiosClient.post(url, data, {
+            cancelToken: tokenAxios,
+        });
+    },
 };
 
 export default authAPI;

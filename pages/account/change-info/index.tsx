@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 import { RootState } from '../../../redux/reducers';
 import Button from '../../../components/button/Button';
@@ -7,10 +9,8 @@ import Popup from '../../../components/common/Popup';
 import Input from '../../../components/input/Input';
 import OverImage from '../../../components/pages/account/OverImage';
 import RequiredAuth from '../../../components/protected/RequiredAuth';
-import style from './ChangeInfo.module.scss';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 import { useConvertDate } from '../../../common/hooks/useConvertDate';
+import style from './ChangeInfo.module.scss';
 
 function ChangeInfo() {
     const convertDate = useConvertDate;
@@ -60,8 +60,8 @@ function ChangeInfo() {
                             name="gender"
                         >
                             <option value="">Chọn giới tính</option>
-                            <option value="00">Nam</option>
-                            <option value="01">Nữ</option>
+                            <option value="01">Nam</option>
+                            <option value="02">Nữ</option>
                         </select>
                     </div>
                 </div>

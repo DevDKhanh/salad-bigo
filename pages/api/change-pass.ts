@@ -11,8 +11,15 @@ export default async function handler(
         const cookies = cookie.parse(
             req ? req.headers.cookie || '' : document.cookie
         );
-        const result = await authAPI.changePass(body, cookies['access-token']);
-        return res.status(200).json({ code: 1, result });
+        const result: any = await authAPI.changePass(
+            body,
+            cookies['access-token']
+        );
+        if (result.code === 0) {
+            return res.status(200).json({ code: 1, result });
+        } else {
+            return res.status(200).json({ code: 0, result });
+        }
     } catch (e) {
         return res.status(200).json({ code: 0, message: 'Not login' });
     }

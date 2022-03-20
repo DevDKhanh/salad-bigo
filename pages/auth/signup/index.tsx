@@ -9,10 +9,11 @@ import RequiredLogout from '../../../components/protected/RequiredLogout';
 import { useDispatch } from 'react-redux';
 import useValidate from '../../../common/hooks/useValidate';
 import { toast } from 'react-toastify';
-import authAPI from '../../../api/auth';
-import axiosClient from '../../../api';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { login } from '../../../redux/actions/auth';
+import { setList } from '../../../redux/actions/wheel';
+import { setCoin, setUserData } from '../../../redux/actions/user';
 /*===========> INTERFACE <==========*/
 interface typeDataForm {
     phone: string;
@@ -30,6 +31,7 @@ interface typeMessage {
 
 /*===========> MAIN COMPONENT <==========*/
 function Signup() {
+    const dispatch = useDispatch();
     const router = useRouter();
     const validate = useValidate;
     const [dataForm, setDataForm] = useState<typeDataForm>({
@@ -63,7 +65,27 @@ function Signup() {
                         const { data } = res;
                         if (data.code === 0) {
                             toast.success('Đăng ký thành công');
-                            router.replace('/auth/login');
+                            const res: any = await axios.post<typeDataForm>(
+                                `/api/login`,
+                                { ...dataForm }
+                            );
+                            if (res) {
+                                const { data } = res;
+                                if (data.code === 0) {
+                                    /*---------- update state ----------*/
+                                    dispatch(
+                                        login({
+                                            token: data.payload.token,
+                                        })
+                                    );
+                                    dispatch(setList(data.listItemWheel));
+                                    dispatch(setCoin(data.payload.coin));
+                                    dispatch(setUserData(data.payload));
+                                } else {
+                                    toast.warn(data?.message);
+                                }
+                            }
+                            // router.replace('/auth/login');
                         } else {
                             toast.warn(data?.message);
                         }
